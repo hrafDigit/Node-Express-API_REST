@@ -6,6 +6,7 @@ var userController = function () { };
 userController.show = function (req, res, next) {
 	model.find({}, (err, result) => {
 		if (err) { console.log(err); }
+
 		res.json({
 			status: 200,
 			result,
@@ -15,20 +16,73 @@ userController.show = function (req, res, next) {
 	});
 }
 
-userController.edit = function (req, res) {
+userController.select = function (req, res) {
 	let id = req.params.id;
 	model.findById(id, (err, result) => {
 		if (err) { console.log(err); }
-		console.log(result.prenom);
 
 		res.json({
 			status: 200,
-			message: "Vous avez séléectionné l'utilisateur : "
+			message: `Vous avez séléctionné l'utilisateur : ${id}`,
 		});
-		console.log('Edit | select by ID OK');
+		console.log("Vous avez séléctionné l'utilisateur : " + id);
+		console.log('Select OK');
+	});
+}
+
+userController.delete = function (req, res) {
+	let id = req.params.id;
+	model.deleteOne({_id:id} , (err, result) => {
+		if (err) { console.log(err); }
+		res.json({
+			status: 200,
+			message: `Vous avez supprimé l'utilisateur : ${id}`,
+		});
+		console.log("Vous avez supprimé l'utilisateur : " + id);
+		console.log('Delete OK');
+		// res.redirect('/users/');
+	});
+}
+
+userController.edit = function (req, res) {
+	let id = req.params.id;
+	model.findById({_id:id}, (err, result) => {
+		if (err) { console.log(err); }
 
 		result.save();
+
+		res.json({
+			status: 200,
+			message: `Vous avez edité l'utilisateur : ${id}`,
+		});
+		console.log("Vous avez edité l'utilisateur : " + id);
+		console.log('Edit OK');
 	});
+}
+
+userController.save = function (req, res) {
+	if (req.params.id == 0) {
+		var user = req.params;
+		user.status = false;
+
+		model.create(user, (err, result) => {
+			if (err) { console.log(err); }
+			res.redirect('/users/');
+		});
+	} else {
+		var user = req.params;
+		model.updateOne({ _id: user.id }, {
+			$set: {
+				prenom: user.prenom,
+				nom: user.nom,
+				adresse: user.adresse,
+			}
+		}, { multi: true }, (error, result) => {
+			if (error)
+				throw error;
+			res.redirect('/users/');
+		});
+	}
 }
 
 // userController.delete = function (req, res) {
@@ -36,12 +90,49 @@ userController.edit = function (req, res) {
 // 	model.deleteOne({ _id: id }, (err, result) => {
 // 		if (err) { console.log(err); }
 // 		res.redirect('/users/');
+
 // 		res.json({
-// 			message: 'Donnée supprimée'
+// 			status: 200,
+// 			result,
+// 			message: 'Utilisateur supprimé'
 // 		});
 // 		console.log('Delete OK');
 // 	});
 // }
+
+
+
+// userController.edit = function (req, res) {
+// 	let id = req.params.id;
+// 	model.findById({ _id: id }, (err, result) => {
+// 		if (err) { console.log(err); }
+
+// 		// result.save();
+
+// 		// res.json({
+// 		// 	status: 200,
+// 		// 	result,
+// 		// 	message: "Vous avez séléctionné l'utilisateur : "
+// 		// });
+
+// 		// console.log(result);
+
+// 		console.log('Edit | select by ID OK');
+// 	});
+// }
+
+
+
+userController.update = function (req, res) {
+	model.updateOne({ _id: id }, {
+		$set: {
+			prenom: String,
+			nom: String,
+			adresse: String,
+		}
+	});
+}
+
 
 // userController.save = function (req, res) {
 // 	if (req.body.id == 0) {

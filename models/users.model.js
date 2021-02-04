@@ -3,10 +3,11 @@ module.exports = function(){
     var Schema = require('mongoose').Schema;
 
     var users = Schema({
-        prenom: String,
-        nom: String,
-        adresse: String,
-        status: Boolean
+        _id:        String,
+        prenom:     String,
+        nom:        String,
+        adresse:    String,
+        status:     Boolean,
     });
 
     return db.model('users', users);

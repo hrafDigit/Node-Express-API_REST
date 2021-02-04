@@ -117,3 +117,94 @@ MongoClient.connect('mongodb://localhost:27017', { useUnifiedTopology: true }, (
 
 });
 */
+
+
+
+/*
+// Test – Insertion de données multiples
+
+MongoClient.connect('mongodb://localhost:27017', { useUnifiedTopology: true }, (
+	err, client) => {
+
+	if (err) throw err;
+	var db = client.db('myRestApiDB');
+	var users = db.collection('users');
+
+
+	// Insertion de données
+	users.insertMany(
+		[
+			{ 
+				prenom: 'Henri', 
+				nom: 'Matisse', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{
+				prenom: 'Maurice',
+				nom: 'de Vlaminck',
+				adresse : 'Feldstraße 66, 20359 Hamburg, Deutschland'
+			},
+			{ 
+				prenom: 'Georges', 
+				nom: 'Braque', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Tsugouharu', 
+				nom: 'Foujita', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Marc', 
+				nom: 'Chagall', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Jean', 
+				nom: 'Cocteau', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Jean', 
+				nom: 'Dubuffet', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Edgar', 
+				nom: 'Degas', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Claude', 
+				nom: 'Monet', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'Auguste', 
+				nom: 'Renoir', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'John', 
+				nom: 'Wick', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{ 
+				prenom: 'John', 
+				nom: 'Wick', 
+				adresse: 'Horseshoe Road, Mill Neck, Long Island, New-York City, USA'
+			},
+			{
+				prenom: 'Pan',
+				nom: 'Pot',
+				adresse : 'Feldstraße 66, 20359 Hamburg, Deutschland'
+			},
+		], (error, res) => {
+		if (error) throw err;
+		console.log(res.result.n);
+		console.log(res.ops.length);
+		console.log(res.result.n +" "+ "données insérées avec succès");
+	});
+
+});
+*/
